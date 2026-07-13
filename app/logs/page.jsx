@@ -28,6 +28,9 @@ export default function LogsPage() {
   const [dir, setDir] = useState(null);
   const boxRef = useRef(null);
   const esRef = useRef(null);
+  // Highest entry seq already shown. On reconnect/resume the stream replays its
+  // backlog; without this we'd append those again and duplicate every line.
+  const lastSeqRef = useRef(-1);
 
   const isElectron = typeof window !== "undefined" && window.desktop?.isElectron;
 
@@ -47,6 +50,9 @@ export default function LogsPage() {
     es.onmessage = (ev) => {
       try {
         const entry = JSON.parse(ev.data);
+        // Skip anything we've already displayed (backlog replayed on reconnect/resume).
+        if (entry.seq != null && entry.seq <= lastSeqRef.current) return;
+        if (entry.seq != null) lastSeqRef.current = entry.seq;
         setEntries((prev) => {
           const next = [...prev, entry];
           return next.length > 2000 ? next.slice(-2000) : next;
@@ -124,7 +130,7 @@ export default function LogsPage() {
             <div className="ln subtle">No log entries yet. Activity from the manager will appear here.</div>
           ) : (
             shown.map((e, i) => (
-              <div key={i} className="ln" style={{ display: "flex", gap: "0.6rem", alignItems: "baseline" }}>
+              <div key={e.seq ?? i} className="ln" style={{ display: "flex", gap: "0.6rem", alignItems: "baseline" }}>
                 <span style={{ color: "var(--ink-muted)", flexShrink: 0 }}>{shortTime(e.ts)}</span>
                 <span style={{ color: LEVEL_COLOR[e.level] || "var(--ink)", fontWeight: 700, width: "3.2rem", flexShrink: 0 }}>
                   {String(e.level || "").toUpperCase()}
