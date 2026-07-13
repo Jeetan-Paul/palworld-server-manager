@@ -3,6 +3,7 @@ const sup = require("@/lib/supervisor");
 const warn = require("@/lib/warn");
 const { notify } = require("@/lib/notify");
 const dbm = require("@/lib/db");
+const logger = require("@/lib/logger");
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -30,6 +31,7 @@ export async function POST(req, { params }) {
     else return NextResponse.json({ ok: false, error: "unknown action" }, { status: 400 });
     return NextResponse.json({ ok: true, result });
   } catch (e) {
+    logger.error("api:worlds", `${action} "${w.display_name}" failed: ${e.message}`);
     return NextResponse.json({ ok: false, error: e.message }, { status: 500 });
   }
 }

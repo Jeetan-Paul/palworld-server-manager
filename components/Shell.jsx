@@ -9,6 +9,7 @@ import { useJobsPoll, summarize, ProgressBar } from "@/components/jobsClient";
 const NAV = [
   { href: "/", icon: "grid", label: "Worlds", match: (p) => p === "/" || p.startsWith("/worlds") },
   { href: "/usage", icon: "activity", label: "Usage", match: (p) => p.startsWith("/usage") },
+  { href: "/logs", icon: "terminal", label: "Logs", match: (p) => p.startsWith("/logs") },
   { href: "/settings", icon: "settings", label: "Settings", match: (p) => p.startsWith("/settings") },
   { href: "/info", icon: "info", label: "Info", match: (p) => p.startsWith("/info") },
 ];
