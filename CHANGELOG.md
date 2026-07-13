@@ -3,6 +3,19 @@
 All notable changes to Palworld Server Manager are documented here.
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+- **Application logs.** The manager now keeps a log of its own activity —
+  provisioning, backups, the scheduler, server process start/stop/crash, SteamCMD
+  runs, and errors that were previously silent. A new **Logs** entry in the sidebar
+  opens a viewer that streams these live with a level filter (debug / info / warn /
+  error), a Live/Pause toggle, and an **Open logs folder** button. Everything is also
+  written to a rotating `app.log` in the data folder (5 MB × 5 files), so there's
+  something concrete to look at — or attach to a bug report — when a server misbehaves.
+  This is separate from a world's in-game **Console** (the game server's own output)
+  and the per-world event history.
+
 ## [2.1.0] — 2026-07-13
 
 ### Added

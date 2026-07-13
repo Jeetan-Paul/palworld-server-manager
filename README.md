@@ -33,6 +33,10 @@ a server (new or existing), and manage everything from a clean interface.
   presets. Only the settings you change are written, so nothing else is disturbed.
 - **Players** — see who's online; kick / ban / unban through the official REST API.
 - **Console** — live server log stream.
+- **Logs** — an application-wide log of the manager's own activity (provisioning,
+  backups, scheduler, server process lifecycle, and errors), with live streaming, level
+  filters, and a rotating `app.log` you can open from the page. Distinct from a world's
+  **Console**, which shows the game server's own output.
 - **Backups** — take, restore, and schedule world backups.
 - **Schedule** — automatic restarts / backups on an interval or at a set time.
 - **Mods** — import and toggle server mods.
